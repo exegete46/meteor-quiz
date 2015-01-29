@@ -2,16 +2,17 @@
 
 ## Collections
 
-- Users (duh?)
-- Quizes
+- Quiz
   - Array - Options
-    - Count - Choices
-  - Array - Responses
+  - Count - Votes
+  - Array - Voters
     - Which `userId`s have responded?
 
 ## Methods
 
-- quizCreate([options])
-- quizResponse('quizId', 'userId', 'choice')
-  - If the user has already chosen, change to new choice.
-- quizDisable('quizId')
+- create("description", [options])
+- vote("quizId", "userId", "choice")
+  - If the user has already chosen, throw an error.
+  - Must validate "choice".
+  - Must validate Quiz is enabled.
+- disable("quizId")
