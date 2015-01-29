@@ -12,12 +12,20 @@ Package.describe({
 
 Package.onUse(function(api) {
   api.versionsFrom('1.0.3.1');
-  api.use(['artwells:accounts-guest']);
-  api.addFiles('exegete46:quiz.js');
+  api.use(['artwells:accounts-guest', 'coffeescript', 'livedata']);
+  api.addFiles('exegete46:quiz.coffee');
+  if (api.export)
+    api.export('Quiz');
 });
 
 Package.onTest(function(api) {
-  api.use('tinytest');
+  api.use([
+    'tinytest',
+    'test-helpers',
+    'coffeescript',
+    'peterellisjones:describe',
+    'livedata'
+  ]);
   api.use('exegete46:quiz');
-  api.addFiles('exegete46:quiz-tests.js');
+  api.addFiles('exegete46:quiz-tests.coffee');
 });
