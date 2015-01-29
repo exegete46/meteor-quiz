@@ -21,21 +21,6 @@ if Meteor.isClient
 
 quiz_options = ['first', 'second', 'third', 'fourth']
 quiz_description = "Test Description"
-createQuiz = (callback) ->
-  Meteor.call 'createQuiz', quiz_description, quiz_options, (err, val) ->
-    if err
-      throw new Meteor.Error err
-    callback(val)
-upvoteQuiz = (quizId, opt, ident, callback) ->
-  Meteor.call 'upvoteQuiz', quizId, opt, ident, (err, val) ->
-    if err
-      throw new Meteor.Error err
-    callback(val)
-
-
-describe 'exegete46:quiz', ->
-  context '#create', ->
-  context '#vote', ->
 
 ## Server only testing.
 if Meteor.isServer
@@ -58,8 +43,8 @@ if Meteor.isServer
       it 'persists to Mongo', (test) ->
         quizCollection.remove {}
         test.equal(quizCollection.find({}).count(), 0)
-        createQuiz (quizId) ->
-          test.equal(quizCollection.find({}).count(), 1)
+        quizzer.create quiz_description, quiz_options
+        test.equal(quizCollection.find({}).count(), 1)
     context '#vote', ->
       it 'increments total votes', (test) ->
         quizId = quizzer.create quiz_description, quiz_options
